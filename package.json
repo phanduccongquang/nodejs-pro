@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-pro",
+  "version": "1.0.0",
+  "description": "nodejs wwith express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phanduccongquang/nodejs-pro.git"
+  },
+  "keywords": [
+    "mysql",
+    "mongodb"
+  ],
+  "author": "quangbabop",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phanduccongquang/nodejs-pro/issues"
+  },
+  "homepage": "https://github.com/phanduccongquang/nodejs-pro#readme"
+}
