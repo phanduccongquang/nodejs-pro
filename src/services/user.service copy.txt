@@ -1,27 +1,26 @@
 
 import getConnections from "config/database";
-import { PrismaClient } from '@prisma/client';
 const handleCreateUser = async (
     fullname: string,
     email: string,
     address: string
 ) => {
+    const connection = await getConnections();
+    try {
+        const sql = 'INSERT INTO `users`(`name`, `email`,`Address`) VALUES (?, ?,?)';
+        const values = [fullname, email, address];
 
-    const prisma = new PrismaClient()
-    const user = await prisma.user.create({
-        data: {
-            name: fullname,
-            email: email,
-            address: address
-        },
-    })
-    return user;
+        const [result, fields] = await connection.execute(sql, values);
+        return result;
+    } catch (err) {
+        return [];
+    }
 }
 const getAllUser = async () => {
     const connection = await getConnections();
     try {
         const [results, fields] = await connection.query(
-            'SELECT * FROM `user`'
+            'SELECT * FROM `users`'
         );
         return results;
     } catch (err) {
