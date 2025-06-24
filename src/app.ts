@@ -2,6 +2,7 @@
 import express from "express";
 import 'dotenv/config';
 import webRouter from "routes/web";
+import initDatabase from "config/seed";
 const app = express();
 
 //config view engine
@@ -20,7 +21,8 @@ app.use(express.static('public'));
 //config router
 webRouter(app);
 
-
+// sheeding data
+initDatabase()
 
 
 app.listen(port, () => {
