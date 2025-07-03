@@ -1,17 +1,22 @@
 
 import { prisma } from 'config/client'
+import { ACCOUNT_TYPE } from 'config/constant';
 const handleCreateUser = async (
     fullname: string,
     email: string,
-    address: string
+    address: string,
+    phone: string,
+    avatar: string
 ) => {
     const a = await prisma.user.create({
         data: {
             fullname: fullname,
             username: email,
             address: address,
-            password: "",
-            accountType: ""
+            password: "123123",
+            accountType: ACCOUNT_TYPE.SYSTEM,
+            phone: phone,
+            avatar: avatar
         }
     })
     return a;
@@ -19,6 +24,10 @@ const handleCreateUser = async (
 const getAllUser = async () => {
     const users = await prisma.user.findMany();
     return users;
+}
+const getAllRole = async () => {
+    const roles = await prisma.role.findMany();
+    return roles;
 }
 const handleDeleteUser = async (id: string) => {
     const deleteUser = await prisma.user.delete({
@@ -50,4 +59,4 @@ const updateUserById = async (id: string, fullname: string, email: string, addre
     return updateUser;
 }
 
-export { handleCreateUser, getAllUser, handleDeleteUser, getUserById, updateUserById }
+export { handleCreateUser, getAllUser, handleDeleteUser, getUserById, updateUserById, getAllRole }
