@@ -1,13 +1,12 @@
 
+import { prisma } from "config/client";
 import getConnections from "config/database";
-import { PrismaClient } from '@prisma/client';
 const handleCreateUser = async (
     fullname: string,
     email: string,
     address: string
 ) => {
 
-    const prisma = new PrismaClient()
     const user = await prisma.user.create({
         data: {
             name: fullname,
@@ -18,15 +17,8 @@ const handleCreateUser = async (
     return user;
 }
 const getAllUser = async () => {
-    const connection = await getConnections();
-    try {
-        const [results, fields] = await connection.query(
-            'SELECT * FROM `user`'
-        );
-        return results;
-    } catch (err) {
-        return [];
-    }
+    const user = await prisma.user.findMany()
+    return user;
 
 }
 const handleDeleteUser = async (id: string) => {
@@ -43,29 +35,20 @@ const handleDeleteUser = async (id: string) => {
     }
 }
 const getUserById = async (id: string) => {
-    try {
-        const connection = await getConnections();
-        const sql = 'SELECT * FROM `users` WHERE `id` = ? ';
-        const values = [id];
-
-        const [result, fields] = await connection.execute(sql, values);
-
-        return result[0];
-    } catch (err) {
-        return [];
-    }
+    const user = await prisma.user.findUnique({ where: { id: +id } })
+    return user;
 }
 const updateUserById = async (id: string, fullname: string, email: string, address: string) => {
-    try {
-        const connection = await getConnections();
-        const sql = 'UPDATE `users` SET `name` = ?,`email` = ?,`Address` = ? WHERE `id` = ? ';
-        const values = [fullname, email, address, id];
-        const [result, fields] = await connection.execute(sql, values);
+    const updateUser = await prisma.user.update({
+        where: { id: +id },
+        data: {
+            name: fullname,
+            email: email,
+            address: address
+        }
 
-        return result[0];
-    } catch (err) {
-        return [];
-    }
+    })
+    return updateUser;
 }
 
 export { handleCreateUser, getAllUser, handleDeleteUser, getUserById, updateUserById }
