@@ -14,7 +14,7 @@ datasource db {
 }
 
 //schema.prisma
-model user {
+model User {
   id          Int     @id @default(autoincrement())
   username    String? @db.VarChar(255)
   password    String? @db.VarChar(255)
@@ -24,20 +24,24 @@ model user {
   accountType String? @db.VarChar(50)
 
   avatar String? @db.VarChar(255)
-  roleId String? @db.VarChar(255)
+
+  role   Role @relation(fields: [roleId], references: [id])
+  roleId Int
 
   @@map("users")
 }
 
-model role {
+model Role {
   id          Int     @id @default(autoincrement())
   name        String? @db.VarChar(255)
   description String? @db.VarChar(255)
 
+  users User[]
+
   @@map("roles")
 }
 
-model order {
+model Order {
   id         Int     @id @default(autoincrement())
   userId     String? @db.VarChar(255)
   totalPrice Int
@@ -45,7 +49,7 @@ model order {
   @@map("orders")
 }
 
-model product {
+model Product {
   id         Int     @id @default(autoincrement())
   name       String? @db.VarChar(255)
   price      Int

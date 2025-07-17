@@ -8,7 +8,7 @@ CREATE TABLE `users` (
     `phone` VARCHAR(255) NULL,
     `accountType` VARCHAR(50) NULL,
     `avatar` VARCHAR(255) NULL,
-    `roleId` VARCHAR(255) NULL,
+    `roleId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -46,3 +46,6 @@ CREATE TABLE `products` (
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `users` ADD CONSTRAINT `users_roleId_fkey` FOREIGN KEY (`roleId`) REFERENCES `roles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

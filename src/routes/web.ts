@@ -12,12 +12,14 @@ const webRouter = (app: Express) => {
     router.get("/", getHomePage)
 
 
-    router.post("/delete-user/:id", postDeleteUserPage)
     router.get("/view-user/:id", getViewUser)
-    router.post("/update-user", updateUserPage)
     router.get("/admin", getDashboard)
     router.get("/admin/user", getDashboardUser)
     router.get("/admin/create-user", getCreateUserPage)
+    router.post("/admin/update-user", fileUploadMiddleware("avatar"), updateUserPage)
+    router.post("/admin/delete-user/:id", postDeleteUserPage)
+
+
 
     router.get("/admin/product", getDashboardProduct)
     router.get("/admin/order", getDashboardOrder)
