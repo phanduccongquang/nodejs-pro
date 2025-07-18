@@ -4,11 +4,8 @@ import { handleCreateUser, getAllUser, handleDeleteUser, getUserById, updateUser
 
 
 const getHomePage = async (req: Request, res: Response) => {
-    const users = await getAllUser();
-    console.log("check user:", users);
-    return res.render('home', {
-        users: users
-    });
+
+    return res.render('client/home/show.ejs');
 }
 
 const getCreateUserPage = async (req: Request, res: Response) => {
